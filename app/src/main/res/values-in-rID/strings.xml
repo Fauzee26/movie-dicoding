@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Info Film</string>
+    <string name="navigation_drawer_open">Buka Navigasi Drawer</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="navigation_drawer_close">Tutup Navigasi Drawer</string>
+    <string name="nav_header_subtitle">Cari Film Favoritmu dan Lihat Apa Yang Akan Tayang Disini</string>
+    <string name="other">Lainnya</string>
+    <string name="home">Menu Utama</string>
+    <string name="search_film">Cari Film</string>
+    <string name="now_showing">Sedang Tayang</string>
+    <string name="upcoming">Akan Datang</string>
+    <string name="settings">Pengaturan</string>
+    <string name="query_hint" translatable="false">Cari Film Disini</string>
+    <string name="change_language">Ganti Bahasa</string>
+    <string name="home_this">Ini Menu Utama</string>
+    <string name="selectLanguage">Pilih Bahasa</string>
+    <string name="set_english">Indonesia</string>
+    <string name="pop_up">Cari FIlm Diatas, dan Lihat apa yang akan kamu tonton</string>
+    <string name="search">Pencarian</string>
+
+    <string name="grid">Grid Mode</string>
+    <string name="list">List Mode</string>
+</resources>
