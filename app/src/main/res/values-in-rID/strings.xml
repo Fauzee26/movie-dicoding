@@ -21,4 +21,8 @@
 
     <string name="grid">Grid Mode</string>
     <string name="list">List Mode</string>
+    <string name="favorite">Favorit</string>
+    <string name="listt">Daftar Film Favorit</string>
+    <string name="nothing_data">Tidak ada data saat ini</string>
+    <string name="empty_data">Daftar Film Favorit mu belum tersedia, silahkan pilih terlebih dahulu kemudian lihat daftarnya disini</string>
 </resources>

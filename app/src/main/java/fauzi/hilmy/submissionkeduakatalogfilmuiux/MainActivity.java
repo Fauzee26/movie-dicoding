@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.adapter.MovieAdapter;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.FavoriteFragment;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.HomeFragment;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.NowShowingFragment;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.SettingsFragment;
@@ -51,12 +53,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        HomeFragment fragment = new HomeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.batasFrame, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        addFragmentToTop(new HomeFragment());
     }
 
     @Override
@@ -69,36 +66,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    public void showRecyclerList(RecyclerView recyclerView, MovieAdapter adapterNowUp) {
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapterNowUp = new MovieAdapter(this);
-//        recyclerView.setAdapter(adapterNowUp);
-//
-//    }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-    //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -106,42 +73,31 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            HomeFragment fragment = new HomeFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.batasFrame, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-
-//        } else if (id == R.id.nav_search) {
+            addFragmentToTop(new HomeFragment());
 
         } else if (id == R.id.nav_nowshowing) {
-            NowShowingFragment fragment = new NowShowingFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.batasFrame, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            addFragmentToTop(new NowShowingFragment());
 
         } else if (id == R.id.nav_upcoming) {
-            UpcomingFragment fragment = new UpcomingFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.batasFrame, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            addFragmentToTop(new UpcomingFragment());
 
         } else if (id == R.id.nav_setting) {
-            SettingsFragment fragment = new SettingsFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.batasFrame, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            addFragmentToTop(new SettingsFragment());
+
+        } else if (id == R.id.nav_favorite) {
+            addFragmentToTop(new FavoriteFragment());
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void addFragmentToTop(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.batasFrame, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

@@ -1,7 +1,12 @@
 package fauzi.hilmy.submissionkeduakatalogfilmuiux;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +18,10 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.db.DatabaseContract;
+
+import static fauzi.hilmy.submissionkeduakatalogfilmuiux.db.DatabaseContract.CONTENT_URI;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -29,16 +38,26 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtDate;
     @BindView(R.id.filmoverviewwww)
     TextView txtDesc;
+    @BindView(R.id.fabFavorite)
+    FloatingActionButton fabFavorite;
+
+    String name, desc, poster, release;
+    private long id;
+    public static int ACTION_MOVIE = 100;
+    public static int ACTION_FAVORITE = 101;
+    public static int RESULT_ACTION = 200;
+    public static int RESULT_FAVORITE = 201;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        String name = getIntent().getStringExtra(EXTRA_NAME);
-        String desc = getIntent().getStringExtra(EXTRA_DESC);
-        String poster = getIntent().getStringExtra(EXTRA_POSTER);
-        String release = getIntent().getStringExtra(EXTRA_DATE);
+        fabFavorite.setImageResource(R.drawable.ic_fav_not);
+        name = getIntent().getStringExtra(EXTRA_NAME);
+        desc = getIntent().getStringExtra(EXTRA_DESC);
+        poster = getIntent().getStringExtra(EXTRA_POSTER);
+        release = getIntent().getStringExtra(EXTRA_DATE);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -55,9 +74,56 @@ public class DetailActivity extends AppCompatActivity {
 //        datee.setText(release);
 
         Picasso.with(DetailActivity.this)
-                .load("http://image.tmdb.org/t/p/original/" + poster)
+                .load("http://image.tmdb.org/t/p/original" + poster)
                 .placeholder(R.drawable.img)
                 .into(imgPosterFilm);
+
+//        setFavorite();
+    }
+
+    public boolean setFavorite() {
+        Uri uri = Uri.parse(CONTENT_URI + "");
+        boolean favorite = false;
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+
+        String getTitle;
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getLong(0);
+                getTitle = cursor.getString(1);
+                if (getTitle.equals(getIntent().getStringExtra("title"))) {
+                    fabFavorite.setImageResource(R.drawable.ic_fav_true);
+                    favorite = true;
+                }
+            } while (cursor.moveToNext());
+
+        }
+        return favorite;
+    }
+
+    public void favorite() {
+        if (setFavorite()) {
+            Uri uri = Uri.parse(CONTENT_URI + "/" + id);
+            getContentResolver().delete(uri, null, null);
+            fabFavorite.setImageResource(R.drawable.ic_fav_not);
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(DatabaseContract.MovieColumns.MOVIE_TITLE, name);
+            values.put(DatabaseContract.MovieColumns.MOVIE_POSTER, poster);
+            values.put(DatabaseContract.MovieColumns.MOVIE_DATE, release);
+            values.put(DatabaseContract.MovieColumns.MOVIE_DESCRIPTION, desc);
+
+            getContentResolver().insert(CONTENT_URI, values);
+            setResult(101);
+
+            fabFavorite.setImageResource(R.drawable.ic_fav_true);
+        }
+    }
+
+    @OnClick(R.id.fabFavorite)
+    public void onViewClicked() {
+        setFavorite();
+        favorite();
     }
 }
 

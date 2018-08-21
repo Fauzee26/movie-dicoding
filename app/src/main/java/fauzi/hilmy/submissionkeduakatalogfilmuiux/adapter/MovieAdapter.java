@@ -52,7 +52,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.txtRating.setText(String.valueOf(movie.getRating()) + "/10");
+        holder.txtRating.setText(String.valueOf(movie.getRating()));
         Picasso.with(context)
                 .load("http://image.tmdb.org/t/p/original/" + movie.getMoviePoster())
                 .placeholder(R.drawable.img)

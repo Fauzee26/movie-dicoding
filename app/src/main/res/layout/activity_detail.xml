@@ -1,56 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
     tools:context=".DetailActivity">
 
-    <ImageView
-        android:id="@+id/imgPosterFilm"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:adjustViewBounds="true" />
-
-    <TextView
-        android:id="@+id/filmNamee"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/fabFavorite"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="Movie Namee"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_fav_not" />
 
-    <TextView
-        android:id="@+id/datee"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="Wednesday, 10 Mar 2008"
-        android:textSize="14sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        tools:text="    Overview"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgPosterFilm"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true" />
 
         <TextView
-            android:id="@+id/filmoverviewwww"
+            android:id="@+id/filmNamee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp"
+            tools:text="Movie Namee" />
+
+        <TextView
+            android:id="@+id/datee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:paddingBottom="30dp"
-            tools:text="Deskripsi FIlm"
-            android:textSize="17sp" />
-    </ScrollView>
+            android:textSize="14sp"
+            tools:text="Wednesday, 10 Mar 2008" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:text="    Overview" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/filmoverviewwww"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="30dp"
+                android:textSize="17sp"
+                tools:text="Deskripsi FIlm" />
+        </ScrollView>
+    </LinearLayout>
+
+
+</RelativeLayout>
