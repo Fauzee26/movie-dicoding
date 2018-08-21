@@ -11,7 +11,7 @@
     <string name="now_showing">Sedang Tayang</string>
     <string name="upcoming">Akan Datang</string>
     <string name="settings">Pengaturan</string>
-    <string name="query_hint" translatable="false">Cari Film Disini</string>
+    <string name="query_hint">Cari Film Disini</string>
     <string name="change_language">Ganti Bahasa</string>
     <string name="home_this">Ini Menu Utama</string>
     <string name="selectLanguage">Pilih Bahasa</string>
@@ -21,4 +21,10 @@
 
     <string name="grid">Grid Mode</string>
     <string name="list">List Mode</string>
+    <string name="favorite">Favorit</string>
+    <string name="listt">Daftar Film Favorit</string>
+    <string name="nothing_data">Tidak ada data saat ini</string>
+    <string name="empty_data">Daftar Film Favorit mu belum tersedia, silahkan pilih terlebih dahulu kemudian lihat daftarnya disini</string>
+    <string name="deleted">" Dari List Film Favorit"</string>
+    <string name="added">" Dimasukkan ke dalam list film favorit mu"</string>
 </resources>

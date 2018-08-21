@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dp">
-
-    <ImageView
-        android:id="@+id/img_poster"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:src="@color/cardview_dark_background" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="7dp"
+    android:layout_margin="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
-        <TextView
-            android:id="@+id/edt_namafilm"
+        <ImageView
+            android:id="@+id/img_poster"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:src="@color/cardview_dark_background" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="16sp"
-            tools:text="Nama Film" />
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/edt_ratingfilm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#0a0386"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="7.5/10" />
+            <TextView
+                android:id="@+id/edt_namafilm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="16sp"
+                tools:text="Nama Film" />
 
-        <TextView
-            android:id="@+id/edt_deskripsifilm"
-            android:layout_width="match_parent"
-            android:maxLines="6"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="5dp"
-            tools:text="Deskripsi FIlm" />
+            <TextView
+                android:id="@+id/edt_ratingfilm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle"
+                android:padding="8dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="7.5" />
 
-        <TextView
-            android:id="@+id/edt_tglfilm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
-            tools:text="Wednesday, 10 March 2018" />
+            <TextView
+                android:id="@+id/edt_deskripsifilm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="5dp"
+                android:maxLines="6"
+                tools:text="Deskripsi FIlm" />
+
+            <TextView
+                android:id="@+id/edt_tglfilm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                tools:text="Wednesday, 10 March 2018" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

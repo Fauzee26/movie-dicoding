@@ -75,6 +75,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         MenuItem menuItem = menu.findItem(R.id.search);
         SearchView searchView = new SearchView(getActivity());
         searchView.setQueryHint(getResources().getString(R.string.query_hint));
+        searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -99,16 +100,6 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Data akan berubah saat user menginputkan text/kata kunci pada SearchView
-//                newText = newText.toLowerCase();
-//                ArrayList<Movie> movies = new ArrayList<>();
-//                for (Movie data : movies) {
-//                    String nama = data.getMovieName().toLowerCase();
-//                    if (nama.contains(newText)) {
-//                        movies.add(data);
-//                    }
-//                }
-//                adapter.setFilter(movies);
                 return false;
             }
         });
@@ -140,22 +131,4 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         super.onDestroyView();
         unbinder.unbind();
     }
-
-//    private void intentData(RecyclerView recyclerView) {
-//        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-//            @Override
-//            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//
-//                Intent intent = new Intent(getActivity(), DetailActivity.class);
-//
-//                intent.putExtra(DetailActivity.EXTRA_NAME, arrayList.get(position).getMovieName());
-//                intent.putExtra(DetailActivity.EXTRA_DATE, arrayList.get(position).getMovieDate());
-//                intent.putExtra(DetailActivity.EXTRA_DESC, arrayList.get(position).getMovieDescription());
-//                intent.putExtra(DetailActivity.EXTRA_POSTER, arrayList.get(position).getMoviePoster());
-//                intent.putExtra(DetailActivity.EXTRA_RATING, arrayList.get(position).getRating());
-//                startActivity(intent);
-//
-//            }
-//        });
-//    }
 }

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fauzi.hilmy.submissionkeduakatalogfilmuiux">
 
+    <permission
+        android:name="fauzi.hilmy.submissionkeduakatalogfilmuiux.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="fauzi.hilmy.submissionkeduakatalogfilmuiux.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
@@ -31,6 +37,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="fauzi.hilmy.submissionkeduakatalogfilmuiux"
+            android:exported="true"
+            android:readPermission="fauzi.hilmy.submissionkeduakatalogfilmuiux.READ_DATABASE"
+            android:writePermission="fauzi.hilmy.submissionkeduakatalogfilmuiux.WRITE_DATABASE" />
     </application>
 
 </manifest>
