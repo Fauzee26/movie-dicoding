@@ -49,7 +49,8 @@ public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder
                 intent.putExtra(DetailActivity.EXTRA_DATE, upcomings.get(position).getMovieDate());
                 intent.putExtra(DetailActivity.EXTRA_DESC, upcomings.get(position).getMovieDescription());
                 intent.putExtra(DetailActivity.EXTRA_POSTER, upcomings.get(position).getMoviePoster());
-                intent.putExtra(DetailActivity.EXTRA_RATING, upcomings.get(position).getRating());
+                intent.putExtra(DetailActivity.EXTRA_RATING, String.valueOf(upcomings.get(position).getRating()));
+                intent.putExtra(DetailActivity.EXTRA_POSTER_BACK, upcomings.get(position).getBackgroundPoster());
                 context.startActivity(intent);
             }
         });

@@ -11,7 +11,7 @@
     <string name="now_showing">Sedang Tayang</string>
     <string name="upcoming">Akan Datang</string>
     <string name="settings">Pengaturan</string>
-    <string name="query_hint" translatable="false">Cari Film Disini</string>
+    <string name="query_hint">Cari Film Disini</string>
     <string name="change_language">Ganti Bahasa</string>
     <string name="home_this">Ini Menu Utama</string>
     <string name="selectLanguage">Pilih Bahasa</string>

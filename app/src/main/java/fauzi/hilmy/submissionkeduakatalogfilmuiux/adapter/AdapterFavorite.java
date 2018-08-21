@@ -69,7 +69,8 @@ public class AdapterFavorite extends RecyclerView.Adapter<AdapterFavorite.MyView
                 i.putExtra(DetailActivity.EXTRA_DATE, fav.getMovieDate());
                 i.putExtra(DetailActivity.EXTRA_DESC, fav.getMovieDescription());
                 i.putExtra(DetailActivity.EXTRA_POSTER, fav.getMoviePoster());
-                i.putExtra(DetailActivity.EXTRA_RATING, fav.getRating());
+                i.putExtra(DetailActivity.EXTRA_RATING, String.valueOf(fav.getRating()));
+                i.putExtra(DetailActivity.EXTRA_POSTER_BACK, fav.getBackgroundPoster());
             }
         });
     }

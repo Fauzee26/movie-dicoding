@@ -30,7 +30,6 @@
         <item>Indonesia</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="listt">List Favorite Movie</string>
     <string name="nothing_data">Nothing Data in this time</string>

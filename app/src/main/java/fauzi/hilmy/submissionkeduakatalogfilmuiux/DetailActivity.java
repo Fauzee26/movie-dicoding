@@ -30,6 +30,8 @@ public class DetailActivity extends AppCompatActivity {
     public static String EXTRA_DESC = "extra_desc";
     public static String EXTRA_DATE = "extra_date";
     public static String EXTRA_POSTER = "extra_poster";
+    public static String EXTRA_POSTER_BACK = "back";
+
     @BindView(R.id.imgPosterFilm)
     ImageView imgPosterFilm;
     @BindView(R.id.filmNamee)
@@ -41,12 +43,8 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.fabFavorite)
     FloatingActionButton fabFavorite;
 
-    String name, desc, poster, release;
+    String name, desc, poster, release, rate, poster_back;
     private long id;
-    public static int ACTION_MOVIE = 100;
-    public static int ACTION_FAVORITE = 101;
-    public static int RESULT_ACTION = 200;
-    public static int RESULT_FAVORITE = 201;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +56,8 @@ public class DetailActivity extends AppCompatActivity {
         desc = getIntent().getStringExtra(EXTRA_DESC);
         poster = getIntent().getStringExtra(EXTRA_POSTER);
         release = getIntent().getStringExtra(EXTRA_DATE);
+        rate = getIntent().getStringExtra(EXTRA_RATING);
+        poster_back = getIntent().getStringExtra(EXTRA_POSTER_BACK);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -112,6 +112,8 @@ public class DetailActivity extends AppCompatActivity {
             values.put(DatabaseContract.MovieColumns.MOVIE_POSTER, poster);
             values.put(DatabaseContract.MovieColumns.MOVIE_DATE, release);
             values.put(DatabaseContract.MovieColumns.MOVIE_DESCRIPTION, desc);
+            values.put(DatabaseContract.MovieColumns.MOVIE_RATING, rate);
+            values.put(DatabaseContract.MovieColumns.MOVIE_POSTER_BACK, poster_back);
 
             getContentResolver().insert(CONTENT_URI, values);
             setResult(101);

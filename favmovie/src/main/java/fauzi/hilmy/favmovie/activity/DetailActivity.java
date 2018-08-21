@@ -52,7 +52,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         txtTitle.setText(favItem.getMovieName());
-        txtDesc.setText(favItem.getMovieName());
+        txtDesc.setText(favItem.getMovieDescription());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = dateFormat.parse(favItem.getMovieDate());
@@ -66,7 +66,6 @@ public class DetailActivity extends AppCompatActivity {
                 .load("http://image.tmdb.org/t/p/original" + favItem.getMoviePoster())
                 .placeholder(R.drawable.img)
                 .error(R.drawable.error)
-                .resize(1000, 1000)
                 .into(imgPosterFilm);
     }
 

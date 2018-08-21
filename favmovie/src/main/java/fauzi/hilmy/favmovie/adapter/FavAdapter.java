@@ -65,7 +65,6 @@ public class FavAdapter extends CursorAdapter {
             Picasso.with(context)
                     .load("http://image.tmdb.org/t/p/original" + getColumnString(cursor, MOVIE_POSTER))
                     .placeholder(R.drawable.img)
-                    .resize(1000, 1000)
                     .into(imgPoster);
         }
     }
