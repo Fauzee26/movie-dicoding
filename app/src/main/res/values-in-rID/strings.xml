@@ -25,4 +25,6 @@
     <string name="listt">Daftar Film Favorit</string>
     <string name="nothing_data">Tidak ada data saat ini</string>
     <string name="empty_data">Daftar Film Favorit mu belum tersedia, silahkan pilih terlebih dahulu kemudian lihat daftarnya disini</string>
+    <string name="deleted">" Dari List Film Favorit"</string>
+    <string name="added">" Dimasukkan ke dalam list film favorit mu"</string>
 </resources>

@@ -34,4 +34,6 @@
     <string name="listt">List Favorite Movie</string>
     <string name="nothing_data">Nothing Data in this time</string>
     <string name="empty_data">Your Favorite Movie Data is Empty, Please Choose first then Look it Here</string>
+    <string name="deleted">" From Favorite Movies"</string>
+    <string name="added">" Inputed to your Favorite Movie"</string>
 </resources>

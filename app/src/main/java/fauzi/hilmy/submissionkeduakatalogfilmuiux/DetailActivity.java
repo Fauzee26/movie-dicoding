@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -91,7 +92,7 @@ public class DetailActivity extends AppCompatActivity {
             do {
                 id = cursor.getLong(0);
                 getTitle = cursor.getString(1);
-                if (getTitle.equals(getIntent().getStringExtra("title"))) {
+                if (getTitle.equals(getIntent().getStringExtra(EXTRA_NAME))) {
                     fabFavorite.setImageResource(R.drawable.ic_fav_true);
                     favorite = true;
                 }
@@ -106,6 +107,7 @@ public class DetailActivity extends AppCompatActivity {
             Uri uri = Uri.parse(CONTENT_URI + "/" + id);
             getContentResolver().delete(uri, null, null);
             fabFavorite.setImageResource(R.drawable.ic_fav_not);
+            toast(getString(R.string.deleted));
         } else {
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.MovieColumns.MOVIE_TITLE, name);
@@ -119,13 +121,17 @@ public class DetailActivity extends AppCompatActivity {
             setResult(101);
 
             fabFavorite.setImageResource(R.drawable.ic_fav_true);
+            toast(getString(R.string.added));
         }
     }
 
     @OnClick(R.id.fabFavorite)
     public void onViewClicked() {
-        setFavorite();
         favorite();
+    }
+
+    private void toast(String message) {
+        Toast.makeText(this, name + message, Toast.LENGTH_SHORT).show();
     }
 }
 

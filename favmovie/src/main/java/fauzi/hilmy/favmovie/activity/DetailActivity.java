@@ -102,7 +102,7 @@ public class DetailActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         Uri uri = getIntent().getData();
                         getContentResolver().delete(uri, null, null);
-                        Toast.makeText(DetailActivity.this, "Satu item berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailActivity.this, "Satu item berhasil dihapus", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 })
