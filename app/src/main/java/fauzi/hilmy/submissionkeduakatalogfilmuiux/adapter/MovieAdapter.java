@@ -17,9 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import fauzi.hilmy.submissionkeduakatalogfilmuiux.DetailActivity;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.activity.DetailActivity;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Movie;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.R;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.helper.Genre;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
 
@@ -42,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         final Movie movie = movieList.get(position);
 
         holder.txtNama.setText(movie.getMovieName());
-        holder.txtDesc.setText(movie.getMovieDescription());
+        holder.txtDesc.setText(Genre.getGenres(movie.getGenre_ids(), context));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = dateFormat.parse(movie.getMovieDate());
@@ -63,11 +64,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
 
+                intent.putExtra(DetailActivity.EXTRA_ID, movie.getId());
                 intent.putExtra(DetailActivity.EXTRA_NAME, movie.getMovieName());
                 intent.putExtra(DetailActivity.EXTRA_DATE, movie.getMovieDate());
+                intent.putExtra(DetailActivity.EXTRA_GENRE, movie.getGenre_ids());
                 intent.putExtra(DetailActivity.EXTRA_DESC, movie.getMovieDescription());
                 intent.putExtra(DetailActivity.EXTRA_POSTER, movie.getMoviePoster());
-                intent.putExtra(DetailActivity.EXTRA_RATING, movie.getRating());
+                intent.putExtra(DetailActivity.EXTRA_RATING, String.valueOf(movie.getRating()));
+                intent.putExtra(DetailActivity.EXTRA_POSTER_BACK, movie.getBackgroundPoster());
                 context.startActivity(intent);
             }
         });

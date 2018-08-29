@@ -27,4 +27,27 @@
     <string name="empty_data">Daftar Film Favorit mu belum tersedia, silahkan pilih terlebih dahulu kemudian lihat daftarnya disini</string>
     <string name="deleted">" Dari List Film Favorit"</string>
     <string name="added">" Dimasukkan ke dalam list film favorit mu"</string>
+
+    <string name="action">Aksi</string>
+    <string name="horor">Kengerian</string>
+    <string name="adventure">Petualangan</string>
+    <string name="animation">Animasi</string>
+    <string name="comedy">Komedi</string>
+    <string name="crime">Kejahatan</string>
+    <string name="documentary">Dokumenter</string>
+    <string name="drama">Drama</string>
+    <string name="fantasy">Fantasi</string>
+    <string name="music">Musik</string>
+    <string name="misteri">Misteri</string>
+    <string name="romance">Percintaan</string>
+    <string name="scifi">Cerita Fiksi</string>
+    <string name="tvmovie">Film TV</string>
+    <string name="war">Peperangan</string>
+    <string name="barat">Barat</string>
+    <string name="family">Keluarga</string>
+    <string name="thriller">Cerita Seru</string>
+    <string name="sejarah">Sejarah</string>
+    <string name="cekKoneksi">Periksa Koneksi Internet Anda kemudian Coba Lagi</string>
+    <string name="minut">" Menit"</string>
+    <string name="overview">Sinopsis</string>
 </resources>

@@ -12,6 +12,7 @@ public class Movie implements Serializable {
     private String moviePoster;
     private String movieDate;
     private String backgroundPoster;
+    private String genre_ids;
 
     public Movie(JSONObject object){
         try {
@@ -19,6 +20,7 @@ public class Movie implements Serializable {
             double rating = object.getDouble("vote_average");
             String moviePoster = object.getString("poster_path");
             String movieName = object.getString("title");
+            String genre_ids = object.getString("genre_ids");
             String backPoster = object.getString("backdrop_path");
             String movieDescription = object.getString("overview");
             String movieDate = object.getString("release_date");
@@ -27,6 +29,7 @@ public class Movie implements Serializable {
             this.rating = rating;
             this.moviePoster = moviePoster;
             this.movieName = movieName;
+            this.genre_ids = genre_ids;
             this.backgroundPoster = backPoster;
             this.movieDescription = movieDescription;
             this.movieDate = movieDate;
@@ -36,6 +39,10 @@ public class Movie implements Serializable {
     }
 
     public Movie() {
+    }
+
+    public String getGenre_ids() {
+        return genre_ids;
     }
 
     public String getBackgroundPoster() {

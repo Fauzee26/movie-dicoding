@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.R;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Movie;
 
 public class UpcomingLoader extends AsyncTaskLoader<ArrayList<Movie>> {
@@ -91,7 +93,8 @@ public class UpcomingLoader extends AsyncTaskLoader<ArrayList<Movie>> {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                Toast.makeText(getContext(), getContext().getString(R.string.cekKoneksi), Toast.LENGTH_SHORT).show();
+                Log.e("Error: ", "cause ", error);
             }
         });
         return movieItemses;

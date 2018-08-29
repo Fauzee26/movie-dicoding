@@ -16,7 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import fauzi.hilmy.submissionkeduakatalogfilmuiux.DetailActivity;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.activity.DetailActivity;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.R;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Favorite;
 
@@ -66,11 +66,14 @@ public class AdapterFavorite extends RecyclerView.Adapter<AdapterFavorite.MyView
             public void onClick(View v) {
                 Intent i = new Intent(context, DetailActivity.class);
                 i.putExtra(DetailActivity.EXTRA_NAME, fav.getMovieName());
+                i.putExtra(DetailActivity.EXTRA_ID, fav.getId());
                 i.putExtra(DetailActivity.EXTRA_DATE, fav.getMovieDate());
                 i.putExtra(DetailActivity.EXTRA_DESC, fav.getMovieDescription());
                 i.putExtra(DetailActivity.EXTRA_POSTER, fav.getMoviePoster());
                 i.putExtra(DetailActivity.EXTRA_RATING, String.valueOf(fav.getRating()));
                 i.putExtra(DetailActivity.EXTRA_POSTER_BACK, fav.getBackgroundPoster());
+
+//                context.startActivity(i);
             }
         });
     }

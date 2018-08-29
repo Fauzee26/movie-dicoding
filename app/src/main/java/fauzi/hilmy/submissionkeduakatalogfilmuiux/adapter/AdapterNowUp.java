@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import fauzi.hilmy.submissionkeduakatalogfilmuiux.DetailActivity;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.activity.DetailActivity;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.R;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Movie;
-//import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Upcoming;
 
 public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder>{
 
@@ -35,18 +35,23 @@ public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder
 
     @Override
     public void onBindViewHolder(AdapterNowUp.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        Picasso.with(context)
+        Glide.with(context)
                 .load("http://image.tmdb.org/t/p/w780/" + upcomings.get(position).getMoviePoster())
                 .placeholder(R.drawable.img)
+                .centerCrop()
+                .override(1000, 2000)
                 .into(holder.imageView);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
 
+                intent.putExtra(DetailActivity.EXTRA_ID, upcomings.get(position).getId());
                 intent.putExtra(DetailActivity.EXTRA_NAME, upcomings.get(position).getMovieName());
                 intent.putExtra(DetailActivity.EXTRA_DATE, upcomings.get(position).getMovieDate());
+                intent.putExtra(DetailActivity.EXTRA_GENRE, upcomings.get(position).getGenre_ids());
                 intent.putExtra(DetailActivity.EXTRA_DESC, upcomings.get(position).getMovieDescription());
                 intent.putExtra(DetailActivity.EXTRA_POSTER, upcomings.get(position).getMoviePoster());
                 intent.putExtra(DetailActivity.EXTRA_RATING, String.valueOf(upcomings.get(position).getRating()));

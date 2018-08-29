@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="textMovieTitle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:text">@string/home</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_30sp</item>
+    </style>
+
+</resources>

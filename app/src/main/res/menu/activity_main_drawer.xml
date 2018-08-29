@@ -26,13 +26,13 @@
             android:icon="@drawable/ic_favorite_black_24dp"
             android:title="@string/favorite" />
     </group>
-    <item android:title="@string/other">
-        <menu>
-            <item
-                android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_settings_black_24dp"
-                android:title="@string/settings" />
-        </menu>
-    </item>
+    <!--<item android:title="@string/other">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_setting"-->
+                <!--android:icon="@drawable/ic_settings_black_24dp"-->
+                <!--android:title="@string/settings" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>
