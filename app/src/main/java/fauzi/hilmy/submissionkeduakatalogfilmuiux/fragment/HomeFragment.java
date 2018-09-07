@@ -61,12 +61,13 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         unbinder = ButterKnife.bind(this, view);
         recyclerSearch.setHasFixedSize(true);
 
-        if (movPreference.getName() != null) {
-            search.setQuery(movPreference.getName(), true);
-            bundle.putString(EXTRAS_MOVIE, movPreference.getName());
-            getLoaderManager().initLoader(0, bundle, HomeFragment.this);
+        if (savedInstanceState != null) {
+            if (movPreference.getName() != null) {
+                search.setQuery(savedInstanceState.getString(EXTRAS_MOVIE), true);
+//                bundle.getString(EXTRAS_MOVIE);
+//                getLoaderManager().initLoader(0, bundle, HomeFragment.this);
+            }
         }
-
         adapter = new MovieAdapter(getActivity());
         adapter.notifyDataSetChanged();
         recyclerSearch.setAdapter(adapter);
@@ -114,6 +115,15 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         bundleLoad.putString(EXTRAS_MOVIE, movPreference.getName());
         getLoaderManager().initLoader(0, bundleLoad, HomeFragment.this);
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (movPreference.getName() != null){
+            outState.putString(EXTRAS_MOVIE, movPreference.getName());
+        }
+
     }
 
     public void hideInputMethod() {
