@@ -56,6 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         holder.txtRating.setText(String.valueOf(movie.getRating()));
         Picasso.with(context)
                 .load("http://image.tmdb.org/t/p/original/" + movie.getMoviePoster())
+                .fit()
                 .placeholder(R.drawable.img)
                 .into(holder.imgPoster);
 

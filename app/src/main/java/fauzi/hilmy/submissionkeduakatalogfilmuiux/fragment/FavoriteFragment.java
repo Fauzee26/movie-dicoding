@@ -1,6 +1,7 @@
 package fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment;
 
 
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,7 +51,14 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         unbinder = ButterKnife.bind(this, view);
         getActivity().setTitle(getString(R.string.listt));
-        recyclerFavorite.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        RecyclerView.LayoutManager layoutManager;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        } else {
+            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        }
+        recyclerFavorite.setLayoutManager(layoutManager);
         recyclerFavorite.setHasFixedSize(true);
 
         adapterFavorite = new AdapterFavorite(getActivity());

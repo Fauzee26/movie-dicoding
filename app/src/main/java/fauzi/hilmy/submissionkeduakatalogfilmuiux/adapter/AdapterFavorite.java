@@ -35,7 +35,7 @@ public class AdapterFavorite extends RecyclerView.Adapter<AdapterFavorite.MyView
 
     @Override
     public AdapterFavorite.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_movie, null, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_movie, parent, false);
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         v.setLayoutParams(layoutParams);
 
@@ -59,6 +59,7 @@ public class AdapterFavorite extends RecyclerView.Adapter<AdapterFavorite.MyView
         }
         Picasso.with(context)
                 .load("http://image.tmdb.org/t/p/original" + fav.getMoviePoster())
+                .fit()
                 .placeholder(R.drawable.img)
                 .into(holder.imgPoster);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

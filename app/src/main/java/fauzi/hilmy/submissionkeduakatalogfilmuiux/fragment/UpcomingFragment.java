@@ -1,6 +1,7 @@
 package fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -56,34 +57,27 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
         recyclerUpcoming.setHasFixedSize(true);
         recyclerUpcoming.setAdapter(adapterNowUp);
 
-        recyclerUpcoming.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        RecyclerView.LayoutManager layoutManager;
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(getActivity(), 2);
+        } else {
+            layoutManager = new GridLayoutManager(getActivity(), 2);
+        }
+
+        recyclerUpcoming.setLayoutManager(layoutManager);
         adapterNowUp = new AdapterNowUp(getActivity());
-//        adapter.setMovieList(arrayList);
         adapterNowUp.notifyDataSetChanged();
         recyclerUpcoming.setAdapter(adapterNowUp);
         getActivity().getSupportLoaderManager().restartLoader(0, bundle, UpcomingFragment.this);
         return view;
     }
 
-//    private void intentData(RecyclerView recyclerView) {
-//        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-//            @Override
-//            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//
-//                Intent intent = new Intent(getActivity(), DetailActivity.class);
-//
-//                intent.putExtra(DetailActivity.EXTRA_NAME, arrayList.get(position).getMovieName());
-//                intent.putExtra(DetailActivity.EXTRA_DATE, arrayList.get(position).getMovieDate());
-//                intent.putExtra(DetailActivity.EXTRA_DESC, arrayList.get(position).getMovieDescription());
-//                intent.putExtra(DetailActivity.EXTRA_POSTER, arrayList.get(position).getMoviePoster());
-//                intent.putExtra(DetailActivity.EXTRA_RATING, arrayList.get(position).getRating());
-//                startActivity(intent);
-//
-//            }
-//        });
-//
-//    }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        getLoaderManager().initLoader(0, bundle, UpcomingFragment.this);
+        super.onConfigurationChanged(newConfig);
+    }
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {

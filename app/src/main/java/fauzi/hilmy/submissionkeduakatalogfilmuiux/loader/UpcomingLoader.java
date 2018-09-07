@@ -93,8 +93,7 @@ public class UpcomingLoader extends AsyncTaskLoader<ArrayList<Movie>> {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), getContext().getString(R.string.cekKoneksi), Toast.LENGTH_SHORT).show();
-                Log.e("Error: ", "cause ", error);
+               Log.e("Error: ", "cause ", error);
             }
         });
         return movieItemses;

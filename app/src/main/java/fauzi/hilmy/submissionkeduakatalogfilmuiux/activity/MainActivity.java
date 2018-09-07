@@ -1,5 +1,8 @@
 package fauzi.hilmy.submissionkeduakatalogfilmuiux.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -8,8 +11,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,6 +32,8 @@ import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.FavoriteFragment;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.HomeFragment;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.NowShowingFragment;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment.UpcomingFragment;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.release.ReleaseReceiver;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.reminder.ReminderReceiver;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,27 +60,38 @@ public class MainActivity extends AppCompatActivity
         title.setText(getString(R.string.home));
         drawerLayout.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
 
-        if (savedInstanceState == null) {
-            HomeFragment home = new HomeFragment();
-            home.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_movies, home, getString(R.string.search)).commit();
-        } else {
-            HomeFragment home = (HomeFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.search));
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_movies, home, getString(R.string.search)).commit();
-        }
-
-        remindRelease();
-        notifReminder();
-
+        setReminderAlarm();
+        setRelease();
         addFragmentToTop(new HomeFragment());
     }
 
-    private void notifReminder() {
-//TODO set Reminder Notif
+    private void setRelease() {
+        Intent alarmIntent = new Intent(MainActivity.this, ReleaseReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-    private void remindRelease() {
-        //TODO set release reminder
+    public void setReminderAlarm() {
+        Intent intent = new Intent(MainActivity.this, ReminderReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        calendar.set(Calendar.HOUR_OF_DAY, 7);
+        calendar.set(Calendar.MINUTE, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 86400000L, pendingIntent);
+
     }
 
     @Override
@@ -90,16 +106,6 @@ public class MainActivity extends AppCompatActivity
     private void setupDrawer() {
         navView.setNavigationItemSelectedListener(this);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -116,9 +122,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_upcoming) {
             addFragmentToTop(new UpcomingFragment());
             title.setText(getString(R.string.upcoming));
-//        } else if (id == R.id.nav_setting) {
-//            addFragmentToTop(new SettingsFragment());
-
         } else if (id == R.id.nav_favorite) {
             addFragmentToTop(new FavoriteFragment());
             title.setText(R.string.favorite);

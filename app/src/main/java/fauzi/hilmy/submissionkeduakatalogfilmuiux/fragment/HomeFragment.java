@@ -1,7 +1,7 @@
 package fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment;
 
-
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,10 +9,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -27,6 +25,7 @@ import butterknife.Unbinder;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.R;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.adapter.MovieAdapter;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Movie;
+import fauzi.hilmy.submissionkeduakatalogfilmuiux.helper.MovPreference;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.loader.MovieLoader;
 
 /**
@@ -42,15 +41,14 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     @BindView(R.id.search)
     SearchView search;
     private MovieAdapter adapter;
-    public ArrayList<Movie> arrayList;
-    String queryy;
+    static String queryy = "query";
     static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
     Bundle bundle = new Bundle();
+    MovPreference movPreference;
 
     public HomeFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -58,36 +56,43 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
 
+        movPreference = new MovPreference(getActivity());
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         recyclerSearch.setHasFixedSize(true);
-        getActivity().setTitle(getResources().getString(R.string.home));
 
-        bundle.putString(EXTRAS_MOVIE, queryy);
-        if (queryy != null) {
-            getActivity().getSupportLoaderManager().initLoader(0, bundle, HomeFragment.this);
+        if (movPreference.getName() != null) {
+            search.setQuery(movPreference.getName(), true);
+            bundle.putString(EXTRAS_MOVIE, movPreference.getName());
+            getLoaderManager().initLoader(0, bundle, HomeFragment.this);
         }
+
+        adapter = new MovieAdapter(getActivity());
+        adapter.notifyDataSetChanged();
+        recyclerSearch.setAdapter(adapter);
+        RecyclerView.LayoutManager layoutManager;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        } else {
+            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        }
+        recyclerSearch.setLayoutManager(layoutManager);
+        recyclerSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         search.setQueryHint(getResources().getString(R.string.query_hint));
         search.setIconifiedByDefault(false);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                layoutWait.setVisibility(View.GONE);
-                queryy = query;
-                Bundle bundle = new Bundle();
-                bundle.putString(EXTRAS_MOVIE, query);
-                recyclerSearch.setAdapter(adapter);
-
-                recyclerSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
-                adapter = new MovieAdapter(getActivity());
-                adapter.notifyDataSetChanged();
-//        adapter.setMovieList(arrayList);
-                recyclerSearch.setAdapter(adapter);
-
-//                intentData(recyclerSearch);
-//
-                getActivity().getSupportLoaderManager().restartLoader(0, bundle, HomeFragment.this);
-                hideInputMethod();
+                if (!TextUtils.isEmpty(query)) {
+                    layoutWait.setVisibility(View.GONE);
+                    queryy = query;
+                    Bundle bundle = new Bundle();
+                    bundle.putString(EXTRAS_MOVIE, movPreference.getName());
+                    movPreference.setName(queryy);
+                    getLoaderManager().restartLoader(0, bundle, HomeFragment.this);
+                    hideInputMethod();
+                }
                 return true;
             }
 
@@ -96,8 +101,19 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                 return false;
             }
         });
+//        Bundle bundle1 = new Bundle();
+//        bundle1.putString(EXTRAS_MOVIE, movPreference.getName());
+//        getLoaderManager().initLoader(0, bundle1, HomeFragment.this);
 
         return view;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Bundle bundleLoad = new Bundle();
+        bundleLoad.putString(EXTRAS_MOVIE, movPreference.getName());
+        getLoaderManager().initLoader(0, bundleLoad, HomeFragment.this);
+        super.onConfigurationChanged(newConfig);
     }
 
     public void hideInputMethod() {
@@ -108,44 +124,6 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.main, menu);
-//
-//        MenuItem menuItem = menu.findItem(R.id.search);
-//        SearchView searchView = new SearchView(getActivity());
-//        searchView.setQueryHint(getResources().getString(R.string.query_hint));
-//        searchView.setIconifiedByDefault(false);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                layoutWait.setVisibility(View.GONE);
-//                queryy = query;
-//                Bundle bundle = new Bundle();
-//                bundle.putString(EXTRAS_MOVIE, query);
-//                recyclerSearch.setAdapter(adapter);
-//
-//                recyclerSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                adapter = new MovieAdapter(getActivity());
-//                adapter.notifyDataSetChanged();
-////        adapter.setMovieList(arrayList);
-//                recyclerSearch.setAdapter(adapter);
-//
-////                intentData(recyclerSearch);
-////
-//                getActivity().getSupportLoaderManager().restartLoader(0, bundle, HomeFragment.this);
-//
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
-//        menuItem.setActionView(searchView);
-//    }
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
@@ -158,9 +136,9 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
+        layoutWait.setVisibility(View.GONE);
         adapter.setData(data);
     }
-
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
@@ -171,5 +149,22 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+//    @Override
+//    public void onResume() {
+//        if (movPreference.getName() != null) {
+//            Bundle bundle1 = new Bundle();
+//            bundle1.putString(EXTRAS_MOVIE, movPreference.getName());
+//            getLoaderManager().restartLoader(0, bundle1, HomeFragment.this);
+//        } else {
+//            super.onResume();
+//        }
+//    }
+
+    @Override
+    public void onDestroy() {
+        movPreference.setName(null);
+        super.onDestroy();
     }
 }

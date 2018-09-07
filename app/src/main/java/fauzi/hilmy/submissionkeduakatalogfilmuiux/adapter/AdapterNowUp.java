@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import fauzi.hilmy.submissionkeduakatalogfilmuiux.activity.DetailActivity;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.R;
 import fauzi.hilmy.submissionkeduakatalogfilmuiux.data.Movie;
 
-public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder>{
+public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder> {
 
     private Context context;
     private ArrayList<Movie> upcomings;
@@ -29,20 +28,17 @@ public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder
 
     @Override
     public AdapterNowUp.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_now_upcoming, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_now_upcoming, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(AdapterNowUp.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        Glide.with(context)
-                .load("http://image.tmdb.org/t/p/w780/" + upcomings.get(position).getMoviePoster())
+        Picasso.with(context)
+                .load("http://image.tmdb.org/t/p/w780" + upcomings.get(position).getMoviePoster())
                 .placeholder(R.drawable.img)
-                .centerCrop()
-                .override(1000, 2000)
+                .fit()
                 .into(holder.imageView);
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,10 +61,12 @@ public class AdapterNowUp extends RecyclerView.Adapter<AdapterNowUp.MyViewHolder
     public int getItemCount() {
         if (upcomings == null)
             return 0;
-        return upcomings.size();    }
+        return upcomings.size();
+    }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+
         MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imgposterr);

@@ -1,5 +1,6 @@
 package fauzi.hilmy.submissionkeduakatalogfilmuiux.fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -54,15 +55,27 @@ public class NowShowingFragment extends Fragment implements LoaderManager.Loader
         recyclerNow.setHasFixedSize(true);
         recyclerNow.setAdapter(adapterNowUp);
 
-        recyclerNow.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        RecyclerView.LayoutManager layoutManager;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(getActivity(), 2);
+        } else {
+            layoutManager = new GridLayoutManager(getActivity(), 2);
+        }
+        recyclerNow.setLayoutManager(layoutManager);
         adapterNowUp = new AdapterNowUp(getActivity());
         adapterNowUp.notifyDataSetChanged();
         recyclerNow.setAdapter(adapterNowUp);
         getActivity().getSupportLoaderManager().restartLoader(0, bundle, NowShowingFragment.this);
 
-
         return view;
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        getLoaderManager().initLoader(0, bundle, NowShowingFragment.this);
+        super.onConfigurationChanged(newConfig);
+    }
+
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
         return new NowLoader(getActivity());

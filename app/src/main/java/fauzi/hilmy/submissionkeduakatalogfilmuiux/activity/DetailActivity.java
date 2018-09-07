@@ -2,6 +2,7 @@ package fauzi.hilmy.submissionkeduakatalogfilmuiux.activity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -114,14 +115,16 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         txtGenre.setText(Genre.getGenres(genre, this));
         Picasso.with(DetailActivity.this)
                 .load("http://image.tmdb.org/t/p/original" + poster)
+                .placeholder(R.color.greey)
                 .into(imgPoster);
 
         Picasso.with(DetailActivity.this)
                 .load("http://image.tmdb.org/t/p/original" + poster_back)
-                .resize(2200, 1080)
-                .centerCrop()
+                .placeholder(R.color.greey)
+                .fit()
                 .into(imgBackdrop);
 
+        Log.d("BACK", poster_back);
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_MOVIE_ID, id_str);
         if (id_str != null) {
@@ -166,11 +169,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             toast(getString(R.string.deleted));
         } else {
             ContentValues values = new ContentValues();
-            values.put(_ID, id_str);
+//            values.put(_ID, id_str);
             values.put(DatabaseContract.MovieColumns.MOVIE_TITLE, name);
             values.put(DatabaseContract.MovieColumns.MOVIE_POSTER, poster);
             values.put(DatabaseContract.MovieColumns.MOVIE_DATE, release);
-            values.put(DatabaseContract.MovieColumns.MOVIE_DESCRIPTION, Genre.getGenres(genre, this));
+            values.put(DatabaseContract.MovieColumns.MOVIE_DESCRIPTION, desc);
             values.put(DatabaseContract.MovieColumns.MOVIE_RATING, rate);
             values.put(DatabaseContract.MovieColumns.MOVIE_POSTER_BACK, poster_back);
 
@@ -199,6 +202,16 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         }
 
         return new DetailLoader(this, mQuery);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_MOVIE_ID, id_str);
+        if (id_str != null) {
+            getSupportLoaderManager().initLoader(0, bundle, DetailActivity.this);
+        }
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
