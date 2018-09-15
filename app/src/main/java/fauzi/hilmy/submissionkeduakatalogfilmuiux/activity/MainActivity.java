@@ -59,10 +59,17 @@ public class MainActivity extends AppCompatActivity
         setupDrawer();
         title.setText(getString(R.string.home));
         drawerLayout.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
-
+        if (savedInstanceState == null) {
+            HomeFragment search = new HomeFragment();
+            search.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_movies, search, getString(R.string.search)).commit();
+        } else {
+            HomeFragment search = (HomeFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.search));
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_movies, search, getString(R.string.search)).commit();
+        }
         setReminderAlarm();
         setRelease();
-        addFragmentToTop(new HomeFragment());
+//        addFragmentToTop(new HomeFragment());
     }
 
     private void setRelease() {
@@ -117,14 +124,20 @@ public class MainActivity extends AppCompatActivity
             addFragmentToTop(new HomeFragment());
             title.setText(getString(R.string.home));
         } else if (id == R.id.nav_nowshowing) {
-            addFragmentToTop(new NowShowingFragment());
-            title.setText(getString(R.string.now_showing));
+            Intent iNow = new Intent(MainActivity.this, NowActivity.class);
+            startActivity(iNow);
+//            addFragmentToTop(new NowShowingFragment());
+//            title.setText(getString(R.string.now_showing));
         } else if (id == R.id.nav_upcoming) {
-            addFragmentToTop(new UpcomingFragment());
-            title.setText(getString(R.string.upcoming));
+            Intent iUp = new Intent(MainActivity.this, UpcomingActivity.class);
+            startActivity(iUp);
+//            addFragmentToTop(new UpcomingFragment());
+//            title.setText(getString(R.string.upcoming));
         } else if (id == R.id.nav_favorite) {
-            addFragmentToTop(new FavoriteFragment());
-            title.setText(R.string.favorite);
+            Intent iFav = new Intent(MainActivity.this, FavoriteActivity.class);
+            startActivity(iFav);
+//            addFragmentToTop(new FavoriteFragment());
+//            title.setText(R.string.favorite);
         }
 
         drawerLayout.closeMenu();

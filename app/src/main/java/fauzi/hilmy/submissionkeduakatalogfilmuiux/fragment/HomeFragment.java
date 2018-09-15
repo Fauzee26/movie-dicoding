@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     static String queryy = "query";
     static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
     Bundle bundle = new Bundle();
-    MovPreference movPreference;
+//    MovPreference movPreference;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,17 +56,16 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
 
-        movPreference = new MovPreference(getActivity());
+//        movPreference = new MovPreference(getActivity());
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         recyclerSearch.setHasFixedSize(true);
 
         if (savedInstanceState != null) {
-            if (movPreference.getName() != null) {
                 search.setQuery(savedInstanceState.getString(EXTRAS_MOVIE), true);
 //                bundle.getString(EXTRAS_MOVIE);
 //                getLoaderManager().initLoader(0, bundle, HomeFragment.this);
-            }
+
         }
         adapter = new MovieAdapter(getActivity());
         adapter.notifyDataSetChanged();
@@ -90,7 +89,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                     queryy = query;
                     Bundle bundle = new Bundle();
                     bundle.putString(EXTRAS_MOVIE, query);
-                    movPreference.setName(queryy);
+//                    movPreference.setName(queryy);
                     getLoaderManager().restartLoader(0, bundle, HomeFragment.this);
                     hideInputMethod();
                 }
@@ -120,9 +119,9 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (movPreference.getName() != null){
+//        if (movPreference.getName() != null){
             outState.putString(EXTRAS_MOVIE, search.getQuery().toString().trim());
-        }
+//        }
 
     }
 
@@ -174,7 +173,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onDestroy() {
-        movPreference.setName(null);
+//        movPreference.setName(null);
         super.onDestroy();
     }
 }
