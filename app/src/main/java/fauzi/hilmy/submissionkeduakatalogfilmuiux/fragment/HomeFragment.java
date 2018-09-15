@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                     layoutWait.setVisibility(View.GONE);
                     queryy = query;
                     Bundle bundle = new Bundle();
-                    bundle.putString(EXTRAS_MOVIE, movPreference.getName());
+                    bundle.putString(EXTRAS_MOVIE, query);
                     movPreference.setName(queryy);
                     getLoaderManager().restartLoader(0, bundle, HomeFragment.this);
                     hideInputMethod();
@@ -102,9 +102,9 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                 return false;
             }
         });
-//        Bundle bundle1 = new Bundle();
-//        bundle1.putString(EXTRAS_MOVIE, movPreference.getName());
-//        getLoaderManager().initLoader(0, bundle1, HomeFragment.this);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString(EXTRAS_MOVIE, search.getQuery().toString().trim());
+        getLoaderManager().initLoader(0, bundle1, HomeFragment.this);
 
         return view;
     }
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Bundle bundleLoad = new Bundle();
-        bundleLoad.putString(EXTRAS_MOVIE, movPreference.getName());
+        bundleLoad.putString(EXTRAS_MOVIE, search.getQuery().toString().trim());
         getLoaderManager().initLoader(0, bundleLoad, HomeFragment.this);
         super.onConfigurationChanged(newConfig);
     }
@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (movPreference.getName() != null){
-            outState.putString(EXTRAS_MOVIE, movPreference.getName());
+            outState.putString(EXTRAS_MOVIE, search.getQuery().toString().trim());
         }
 
     }
